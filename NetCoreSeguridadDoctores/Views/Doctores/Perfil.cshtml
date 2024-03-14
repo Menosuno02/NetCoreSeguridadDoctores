@@ -1,0 +1,18 @@
+﻿@using System.Security.Claims
+
+<h1>Perfil de @Context.User.Identity.Name</h1>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        Doctor No: @Context.User.FindFirst(ClaimTypes.NameIdentifier).Value
+    </li>
+    <li class="list-group-item">
+        Hospital Cod: @Context.User.FindFirst("HospitalCod").Value
+    </li>
+    <li class="list-group-item">
+        Especialidad: @Context.User.FindFirst(ClaimTypes.Role).Value
+    </li>
+    <li class="list-group-item">
+        Salario: @Context.User.FindFirst("Salario").Value
+    </li>
+</ul>

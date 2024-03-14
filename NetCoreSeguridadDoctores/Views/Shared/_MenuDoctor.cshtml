@@ -1,0 +1,27 @@
+﻿@if (!Context.User.Identity.IsAuthenticated)
+{
+    <li class="nav-item">
+        <a asp-controller="Doctores"
+           asp-action="Perfil"
+           class="nav-link text-primary">
+            Log In
+        </a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a asp-controller="Doctores"
+           asp-action="Perfil"
+           class="nav-link text-primary">
+            Perfil
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Managed"
+           asp-action="Logout"
+           class="nav-link text-danger">
+            Cerrar sesión
+        </a>
+    </li>
+}

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<NetCoreSeguridadDoctores.Models.Enfermo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Inscripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sexo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NSS)
+            </th>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <th></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Inscripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNac)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sexo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NSS)
+                </td>
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-controller="Doctores" asp-action="Delete"
+                           asp-route-inscripcion="@item.Inscripcion" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
