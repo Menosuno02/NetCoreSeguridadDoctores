@@ -27,10 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.NSS)
             </th>
-            @if (Context.User.Identity.IsAuthenticated)
-            {
-                <th></th>
-            }
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -55,15 +52,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NSS)
                 </td>
-                @if (Context.User.Identity.IsAuthenticated)
-                {
-                    <td>
+                <td>
+                    @if (Context.User.Identity.IsAuthenticated)
+                    {
                         <a asp-controller="Doctores" asp-action="Delete"
                            asp-route-inscripcion="@item.Inscripcion" class="btn btn-danger">
-                            Delete
+                            Delete Oculto
                         </a>
-                    </td>
-                }
+                    }
+                    <a asp-controller="Doctores" asp-action="Delete"
+                       asp-route-inscripcion="@item.Inscripcion" class="btn btn-info">
+                        Delete Seguridad
+                    </a>
+                </td>
             </tr>
         }
     </tbody>

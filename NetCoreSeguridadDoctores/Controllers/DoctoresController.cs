@@ -29,7 +29,9 @@ namespace NetCoreSeguridadDoctores.Controllers
         [AuthorizeDoctores]
         public async Task<IActionResult> Delete(int inscripcion)
         {
-            return View(inscripcion);
+            if (inscripcion == 0) return RedirectToAction("Enfermos");
+            Enfermo enfermo = await this.repo.FindEnfermoAsync(inscripcion);
+            return View(enfermo);
         }
 
         [HttpPost]

@@ -25,6 +25,12 @@ namespace NetCoreSeguridadDoctores.Repositories
             return await this.context.Enfermos.ToListAsync();
         }
 
+        public async Task<Enfermo> FindEnfermoAsync(int inscripcion)
+        {
+            return await this.context.Enfermos
+                .FirstOrDefaultAsync(e => e.Inscripcion == inscripcion);
+        }
+
         public async Task DeleteEnfermoAsync(int inscripcion)
         {
             Enfermo enfermo = await this.context.Enfermos
