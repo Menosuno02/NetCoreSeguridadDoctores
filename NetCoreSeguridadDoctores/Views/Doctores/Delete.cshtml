@@ -2,7 +2,7 @@
 
 <form method="post">
     <input type="hidden" name="inscripcion" value="@Model.Inscripcion" />
-    <h3>¿Seguro que quieres borrar el enfermo con inscripcion @Model.Apellido?</h3>
+    <h3>¿Seguro que quieres borrar el enfermo @Model.Apellido?</h3>
     <button class="btn btn-danger">Si, borrar</button>
     <a asp-controller="Doctores" asp-action="Enfermos"
        class="btn btn-secondary">No, cancelar</a>

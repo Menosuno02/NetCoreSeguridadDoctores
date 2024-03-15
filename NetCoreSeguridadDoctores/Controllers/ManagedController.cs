@@ -45,6 +45,12 @@ namespace NetCoreSeguridadDoctores.Controllers
                 identity.AddClaim(claimHospitalCod);
                 identity.AddClaim(claimEspecialidad);
                 identity.AddClaim(claimSalario);
+                // Incluimos Claim inventado que solo tendrá un doctor
+                if (doctor.DoctorNo == 111)
+                {
+                    identity.AddClaim(
+                        new Claim("Administrador", "Soy el admin"));
+                }
                 ClaimsPrincipal userPricipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
@@ -67,5 +73,9 @@ namespace NetCoreSeguridadDoctores.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult ErrorAcceso()
+        {
+            return View();
+        }
     }
 }

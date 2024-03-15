@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using NetCoreSeguridadDoctores.Data;
 using NetCoreSeguridadDoctores.Repositories;
+using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
@@ -16,7 +17,13 @@ builder.Services.AddAuthentication(options =>
     CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme =
     CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie();
+}).AddCookie(
+    CookieAuthenticationDefaults.AuthenticationScheme,
+    config =>
+    {
+        config.AccessDeniedPath = "/Managed/ErrorAcceso";
+    }
+);
 
 // Add services to the container.
 string connectionString =
@@ -24,6 +31,15 @@ string connectionString =
 builder.Services.AddTransient<RepositoryDoctores>();
 builder.Services.AddDbContext<DoctoresContext>
     (options => options.UseSqlServer(connectionString));
+
+// Incluimos la polítcia para el acceso a determinados roles
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("PERMISOSELEVADOS",
+        policy => policy.RequireRole("Psiquiatría", "Cardiología"));
+    options.AddPolicy("AdminOnly",
+        policy => policy.RequireClaim("Administrador"));
+});
 
 // Personalizamos rutas
 builder.Services.AddControllersWithViews
