@@ -11,13 +11,13 @@ namespace NetCoreSeguridadDoctores.Policies
             (AuthorizationHandlerContext context, OverSalarioRequirement requirement)
         {
             if (!context.User.HasClaim
-                (u => u.Type == "SALARIO"))
+                (u => u.Type == "Salario"))
             {
                 context.Fail();
             }
             else
             {
-                string data = context.User.FindFirst("SALARIO").Value;
+                string data = context.User.FindFirst("Salario").Value;
                 int salario = int.Parse(data);
                 if (salario >= 220000)
                 {

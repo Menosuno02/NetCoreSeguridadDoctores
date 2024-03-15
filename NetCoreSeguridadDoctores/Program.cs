@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using NetCoreSeguridadDoctores.Data;
+using NetCoreSeguridadDoctores.Policies;
 using NetCoreSeguridadDoctores.Repositories;
-using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
@@ -39,6 +39,8 @@ builder.Services.AddAuthorization(options =>
         policy => policy.RequireRole("Psiquiatría", "Cardiología"));
     options.AddPolicy("AdminOnly",
         policy => policy.RequireClaim("Administrador"));
+    options.AddPolicy("SoloRicos",
+        policy => policy.Requirements.Add(new OverSalarioRequirement()));
 });
 
 // Personalizamos rutas

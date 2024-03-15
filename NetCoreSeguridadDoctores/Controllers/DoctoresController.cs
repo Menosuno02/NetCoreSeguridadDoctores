@@ -51,5 +51,11 @@ namespace NetCoreSeguridadDoctores.Controllers
         {
             return View();
         }
+
+        [AuthorizeDoctores(Policy = "SoloRicos")]
+        public IActionResult DoctoresRicos()
+        {
+            return View();
+        }
     }
 }
